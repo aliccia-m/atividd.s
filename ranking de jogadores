@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Ranking de Jogadores</title>
+</head>
+<body>
+
+<h2>Ranking de Jogadores</h2>
+
+<input type="text" id="jogador" placeholder="Nome do jogador">
+<input type="number" id="pontos" placeholder="Pontos">
+
+<button onclick="adicionarJogador()">Adicionar Jogador</button>
+
+<ul id="lista"></ul>
+
+<script>
+let ranking = [];
+
+function adicionarJogador(){
+
+    let jogador = document.getElementById("jogador").value;
+    let pontos = Number(document.getElementById("pontos").value);
+
+    if(jogador !== "" && pontos !== ""){
+
+        ranking.push({
+            jogador: jogador,
+            pontos: pontos
+        });
+
+        document.getElementById("jogador").value = "";
+        document.getElementById("pontos").value = "";
+
+        mostrarRanking();
+    }
+}
+
+function mostrarRanking(){
+
+    // ordenar por pontos (maior para menor)
+    ranking.sort(function(a,b){
+        return b.pontos - a.pontos;
+    });
+
+    // criar ranking com posição usando map
+    const rankingComPosicao = ranking.map(function(item, index){
+        return {
+            posicao: index + 1,
+            jogador: item.jogador,
+            pontos: item.pontos
+        };
+    });
+
+    const ul = document.getElementById("lista");
+    ul.innerHTML = "";
+
+    rankingComPosicao.forEach(function(item){
+
+        const li = document.createElement("li");
+        li.textContent =
+        item.posicao + "º - " + item.jogador + " (" + item.pontos + " pontos)";
+
+        ul.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
