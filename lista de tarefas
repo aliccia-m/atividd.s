@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Tarefas</title>
+</head>
+<body>
+
+<h2>Lista de Tarefas</h2>
+
+<input type="text" id="titulo" placeholder="Título da tarefa">
+
+<select id="prioridade">
+    <option value="baixa">Baixa</option>
+    <option value="media">Média</option>
+    <option value="alta">Alta</option>
+</select>
+
+<button onclick="adicionarTarefa()">Adicionar</button>
+
+<ul id="lista"></ul>
+
+<script>
+let tarefas = [];
+
+function adicionarTarefa() {
+    let titulo = document.getElementById("titulo").value;
+    let prioridade = document.getElementById("prioridade").value;
+
+    if (titulo !== "") {
+
+        let tarefa = {
+            titulo: titulo,
+            prioridade: prioridade
+        };
+
+        if (prioridade === "alta") {
+            tarefas.unshift(tarefa); // adiciona no início
+        } else {
+            tarefas.push(tarefa); // adiciona no final
+        }
+
+        document.getElementById("titulo").value = "";
+        mostrarTarefas();
+    }
+}
+
+function mostrarTarefas() {
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    tarefas.forEach(function(tarefa) {
+        let li = document.createElement("li");
+        li.textContent = tarefa.titulo + " - Prioridade: " + tarefa.prioridade;
+        lista.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
