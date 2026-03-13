@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Filtro de Usuários</title>
+</head>
+<body>
+
+<h2>Lista de Usuários</h2>
+
+<button onclick="mostrarTodos()">Mostrar Todos</button>
+<button onclick="mostrarMaiores()">Mostrar apenas maiores de 18</button>
+
+<ul id="lista"></ul>
+
+<script>
+const usuarios = [
+ {nome: "Ana", idade: 17},
+ {nome: "Carlos", idade: 22},
+ {nome: "Maria", idade: 30},
+ {nome: "Pedro", idade: 15}
+];
+
+function mostrarTodos(){
+    mostrarLista(usuarios);
+}
+
+function mostrarMaiores(){
+    const maiores = usuarios.filter(function(usuario){
+        return usuario.idade >= 18;
+    });
+
+    mostrarLista(maiores);
+}
+
+function mostrarLista(listaUsuarios){
+    const ul = document.getElementById("lista");
+    ul.innerHTML = "";
+
+    listaUsuarios.forEach(function(usuario){
+        const li = document.createElement("li");
+        li.textContent = usuario.nome + " - Idade: " + usuario.idade;
+        ul.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
