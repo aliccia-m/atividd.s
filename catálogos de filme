@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Catálogo de Filmes</title>
+</head>
+<body>
+
+<h2>Catálogo de Filmes</h2>
+
+<input type="text" id="titulo" placeholder="Título do filme">
+<input type="text" id="genero" placeholder="Gênero">
+<input type="number" id="ano" placeholder="Ano">
+
+<button onclick="adicionarFilme()">Adicionar Filme</button>
+<button onclick="mostrarTodos()">Mostrar Todos</button>
+<button onclick="filtrarGenero()">Filtrar por Gênero</button>
+
+<ul id="lista"></ul>
+
+<script>
+let filmes = [];
+
+function adicionarFilme(){
+    let titulo = document.getElementById("titulo").value;
+    let genero = document.getElementById("genero").value;
+    let ano = document.getElementById("ano").value;
+
+    if(titulo !== "" && genero !== "" && ano !== ""){
+
+        let filme = {
+            titulo: titulo,
+            genero: genero,
+            ano: ano
+        };
+
+        filmes.push(filme);
+
+        document.getElementById("titulo").value = "";
+        document.getElementById("genero").value = "";
+        document.getElementById("ano").value = "";
+
+        mostrarTodos();
+    }
+}
+
+function mostrarTodos(){
+    mostrarLista(filmes);
+}
+
+function filtrarGenero(){
+    let generoFiltro = prompt("Digite o gênero para filtrar:");
+
+    let filtrados = filmes.filter(function(filme){
+        return filme.genero.toLowerCase() === generoFiltro.toLowerCase();
+    });
+
+    mostrarLista(filtrados);
+}
+
+function mostrarLista(listaFilmes){
+    const ul = document.getElementById("lista");
+    ul.innerHTML = "";
+
+    listaFilmes.forEach(function(filme){
+        const li = document.createElement("li");
+        li.textContent = filme.titulo + " - " + filme.genero + " (" + filme.ano + ")";
+        ul.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
