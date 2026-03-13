@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Carrinho de Compras</title>
+</head>
+<body>
+
+<h2>Carrinho de Compras</h2>
+
+<input type="text" id="nomeProduto" placeholder="Nome do produto">
+<input type="number" id="precoProduto" placeholder="Preço">
+
+<button onclick="adicionarProduto()">Adicionar Produto</button>
+<button onclick="removerUltimo()">Remover Último Produto</button>
+
+<ul id="lista"></ul>
+
+<script>
+let carrinho = [];
+
+function adicionarProduto() {
+    let nome = document.getElementById("nomeProduto").value;
+    let preco = Number(document.getElementById("precoProduto").value);
+
+    if (nome !== "" && preco !== "") {
+
+        let produto = {
+            nome: nome,
+            preco: preco
+        };
+
+        carrinho.push(produto); // adiciona no array
+
+        document.getElementById("nomeProduto").value = "";
+        document.getElementById("precoProduto").value = "";
+
+        mostrarCarrinho();
+    }
+}
+
+function removerUltimo() {
+    carrinho.pop(); // remove o último produto
+    mostrarCarrinho();
+}
+
+function mostrarCarrinho() {
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    carrinho.forEach(function(produto){
+        let li = document.createElement("li");
+        li.textContent = produto.nome + " - R$ " + produto.preco.toFixed(2);
+        lista.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
