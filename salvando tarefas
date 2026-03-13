@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Tarefas</title>
+</head>
+<body>
+
+<h2>Lista de Tarefas</h2>
+
+<input type="text" id="tarefaInput" placeholder="Digite uma tarefa">
+<button onclick="adicionarTarefa()">Adicionar</button>
+
+<ul id="lista"></ul>
+
+<script>
+let tarefas = [];
+
+// carregar tarefas do LocalStorage ao abrir a página
+window.onload = function() {
+    const dados = localStorage.getItem("tarefas");
+
+    if (dados) {
+        tarefas = JSON.parse(dados); // converte string para array
+        mostrarTarefas();
+    }
+};
+
+function adicionarTarefa() {
+    const input = document.getElementById("tarefaInput");
+    const texto = input.value;
+
+    if (texto !== "") {
+        tarefas.push(texto);
+
+        // salvar no LocalStorage
+        localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+        input.value = "";
+        mostrarTarefas();
+    }
+}
+
+function mostrarTarefas() {
+    const ul = document.getElementById("lista");
+    ul.innerHTML = "";
+
+    tarefas.forEach(function(tarefa){
+        const li = document.createElement("li");
+        li.textContent = tarefa;
+        ul.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
