@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Editar Tarefas</title>
+</head>
+<body>
+
+<h2>Lista de Tarefas</h2>
+
+<input type="text" id="tarefaInput" placeholder="Digite uma tarefa">
+<button onclick="adicionarTarefa()">Adicionar</button>
+
+<ul id="lista"></ul>
+
+<script>
+let tarefas = [];
+
+function adicionarTarefa() {
+    const input = document.getElementById("tarefaInput");
+    const texto = input.value;
+
+    if (texto !== "") {
+        tarefas.push(texto);
+        input.value = "";
+        mostrarTarefas();
+    }
+}
+
+function editarTarefa(index) {
+    let novaTarefa = prompt("Editar tarefa:", tarefas[index]);
+
+    if (novaTarefa !== null && novaTarefa !== "") {
+        tarefas.splice(index, 1, novaTarefa); 
+        // remove o item antigo e adiciona o novo
+
+        mostrarTarefas();
+    }
+}
+
+function mostrarTarefas() {
+    const ul = document.getElementById("lista");
+    ul.innerHTML = "";
+
+    tarefas.forEach(function(tarefa, index) {
+
+        const li = document.createElement("li");
+        li.textContent = tarefa + " ";
+
+        const botaoEditar = document.createElement("button");
+        botaoEditar.textContent = "Editar";
+        botaoEditar.onclick = function() {
+            editarTarefa(index);
+        };
+
+        li.appendChild(botaoEditar);
+        ul.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
