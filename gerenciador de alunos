@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Gerenciador de Alunos</title>
+</head>
+<body>
+
+<h2>Gerenciador de Alunos</h2>
+
+<input type="text" id="nome" placeholder="Nome do aluno">
+<input type="number" id="nota" placeholder="Nota">
+<button onclick="adicionarAluno()">Adicionar</button>
+
+<button onclick="mostrarAprovados()">Mostrar Aprovados (≥7)</button>
+<button onclick="mostrarTodos()">Mostrar Todos</button>
+
+<ul id="lista"></ul>
+
+<script>
+let alunos = [];
+
+function adicionarAluno() {
+    let nome = document.getElementById("nome").value;
+    let nota = Number(document.getElementById("nota").value);
+
+    if (nome !== "" && nota !== "") {
+        alunos.push({ nome: nome, nota: nota }); // adiciona no array
+        document.getElementById("nome").value = "";
+        document.getElementById("nota").value = "";
+        mostrarTodos();
+    }
+}
+
+function mostrarTodos() {
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    alunos.forEach(function(aluno) {
+        let li = document.createElement("li");
+        li.textContent = aluno.nome + " - Nota: " + aluno.nota;
+        lista.appendChild(li);
+    });
+}
+
+function mostrarAprovados() {
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    let aprovados = alunos.filter(function(aluno) {
+        return aluno.nota >= 7; // filtra aprovados
+    });
+
+    aprovados.forEach(function(aluno) {
+        let li = document.createElement("li");
+        li.textContent = aluno.nome + " - Nota: " + aluno.nota;
+        lista.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
